@@ -1,0 +1,24 @@
+# ---- Core Server ----
+fastapi==0.123.5
+uvicorn==0.38.0
+starlette==0.49.3
+Jinja2==3.1.6
+python-multipart==0.0.20
+
+# ---- Computer Vision / Detection ----
+numpy==1.23.5
+opencv-python==4.7.0.72
+opencv-contrib-python==4.11.0.86
+
+# ---- Hand Gesture Recognition ----
+mediapipe==0.10.21
+protobuf==4.25.8
+absl-py==2.3.1
+flatbuffers==25.9.23
+
+# ---- Utilities ----
+requests==2.32.5
+pydantic==2.12.5
+pydantic_core==2.41.5
+typing_extensions==4.15.0
+annotated-types==0.7.0
