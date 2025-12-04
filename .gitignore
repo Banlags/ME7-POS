@@ -1,0 +1,26 @@
+# --- Python cache ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# --- Virtual environments ---
+.venv/
+.venv-3.9/
+env/
+venv/
+
+# --- OS / Editor junk ---
+.DS_Store
+.vscode/
+.idea/
+
+# --- Ultralytics / YOLO output ---
+runs/
+
+# --- Big binaries we don't want in Git ---
+*.engine
+
+# --- Logs ---
+*.log

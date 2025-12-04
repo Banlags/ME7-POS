@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Visual POS System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Visual POS System</h1>
+                <p class="subtitle">Grocery POS with Visual Item Recognition</p>
+            </div>
+            <div class="header-right">
+                <span class="session-status" id="session-status">
+                    {{ session_status }}
+                </span>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- LEFT: Live camera feed (placeholder for now) -->
+            <section class="camera-section">
+                <h2>Live Camera Feed</h2>
+                <div class="camera-frame">
+                    <!-- Replace placeholder with live MJPEG stream -->
+                    <img
+                        id="camera-stream"
+                        src="/video_feed"
+                        alt="Live camera feed"
+                        class="camera-img"
+                    />
+                </div>
+                <div class="camera-instructions">
+                    <p>
+                        Show an open hand to start a session.
+                        Show a closed hand to end the session.
+                    </p>
+                    <p>
+                        Items will be placed in front of the camera one at a time.
+                    </p>
+                </div>
+            </section>
+
+            <!-- RIGHT: POS Panel -->
+            <section class="pos-section">
+                <h2>POS Receipt</h2>
+
+                <div class="receipt-container">
+                    <table class="receipt-table">
+                        <thead>
+                            <tr>
+                                <th class="col-item">Item</th>
+                                <th class="col-qty">Qty</th>
+                                <th class="col-price">Price</th>
+                                <th class="col-subtotal">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="receipt-body">
+                            {% if items and items|length > 0 %}
+                                {% for item in items %}
+                                    <tr>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>₱{{ "%.2f"|format(item.unit_price) }}</td>
+                                        <td>₱{{ "%.2f"|format(item.subtotal) }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="empty-row">
+                                    <td colspan="4">No items scanned yet</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="total-container">
+                    <div class="total-label">TOTAL</div>
+                    <div class="total-value" id="total-value">
+                        ₱{{ "%.2f"|format(total_amount) }}
+                    </div>
+                </div>
+
+                <div class="session-summary" id="session-summary">
+                    <!-- Later: show end-of-session summary here -->
+                </div>
+
+                <div class="pos-footer">
+                    <p>
+                        This POS will automatically update when items are recognized
+                        and when sessions start/end based on hand gestures.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <span>Masters in AI – Visual POS Project</span>
+        </footer>
+    </div>
+
+    <audio id="sound-item" src="/static/sounds/beep_item.mp3" preload="auto"></audio>
+    <audio id="sound-start" src="/static/sounds/beep_start.mp3" preload="auto"></audio>
+    <audio id="sound-end" src="/static/sounds/beep_end.mp3" preload="auto"></audio>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
